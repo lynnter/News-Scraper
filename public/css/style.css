@@ -1,0 +1,17 @@
+.navbar-brand {
+font-size: 1.6rem;
+}
+.navbar-light .navbar-brand {
+color: #a1b5bf;
+font-family: 'Share Tech', sans-serif; 
+}
+
+.display-4 {
+     font-family: 'Share Tech', sans-serif;
+     text-align: center;
+}
+
+.lead {
+     font-family: 'Share Tech', sans-serif;
+     text-align: center;
+ }
