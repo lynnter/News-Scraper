@@ -3,6 +3,8 @@ var express = require('express')
 var mongoose = require('mongoose');
 var cheerio = require('cheerio');
 var axios = require('axios');
+var exphbs = require("express-handlebars");
+
 
 
 // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
@@ -18,6 +20,15 @@ var app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
+
+// Handlebars
+// app.engine(
+//   "handlebars",
+//   exphbs({
+//       defaultLayout: "main"
+//   })
+// );
+// app.set("view engine", "handlebars");
 
 
 // GET request for scraping WIRED 
@@ -93,11 +104,13 @@ app.post("/articles/:id", (req, res) => {
        });
    });
    
-
-
+// Routes
+// require("./htmlRoutes")(app);
 
 // Start the server
 app.listen(PORT, function() {
      console.log("App running on port " + PORT + "!");
    });
    
+   
+  //  module.exports = app;
