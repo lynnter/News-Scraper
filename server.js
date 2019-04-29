@@ -22,13 +22,13 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Handlebars
-// app.engine(
-//   "handlebars",
-//   exphbs({
-//       defaultLayout: "main"
-//   })
-// );
-// app.set("view engine", "handlebars");
+app.engine(
+  "handlebars",
+  exphbs({
+      defaultLayout: "main"
+  })
+);
+app.set("view engine", "handlebars");
 
 
 // GET request for scraping WIRED 
@@ -44,19 +44,19 @@ app.get("/scrape", (req, res) => {
       result.title = $(elem).children("a").children("h2").text();
       result.link = "https://www.wired.com" + $(elem).children("a").attr("href");
       result.summary = $(elem).children("a").children("p").text();
-     console.log(result)
+      console.log(result)
      
 
-     // Using Mongoose, create a new Article using the `result` object built from scraping
-     db.Article.create(result)
-     .then(dbArticle => {
+      // Using Mongoose, create a new Article using the `result` object built from scraping
+      db.Article.create(result)
+      .then(dbArticle => {
           // View the added result in the console
           console.log(dbArticle);
-     })
-     .catch(err => {
+      })
+      .catch(err => {
           // If an error occurred, log it
           console.log(err);
-     });
+      });
 
 });
      
@@ -66,6 +66,7 @@ app.get("/scrape", (req, res) => {
 
 // Route for getting all Articles from the db
 app.get("/articles", (req, res) => {
+    console.log('here');
      // Grab every document in the Articles collection
      db.Article.find({})
        .then(dbArticle => {
@@ -104,7 +105,24 @@ app.post("/articles/:id", (req, res) => {
        });
    });
    
+
+app.get("/deleteArticles", function(req, res) {
+  console.log('here2');
+  db.Article.deleteMany({}).then(v => {
+    console.log('here3: ', v);
+    res.json(v)
+  });
+})
+
 // Routes
+app.get("/", function(req, res) {
+  // If the user already has an account send them to their profile page
+      res.render("index", {
+          title: "Main Page",
+          customcss: "<link rel=\"stylesheet\" href=\"css/style.css\"></link>",
+          customjs: "<script type=\"text/javascript\" src=\"js/app.js\"></script>",
+      });
+  });
 // require("./htmlRoutes")(app);
 
 // Start the server

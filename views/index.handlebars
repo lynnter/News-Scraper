@@ -1,0 +1,43 @@
+<div>
+<!-- nav bar-->
+     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+          <a class="navbar-brand" href="./index.html">Science News Scraper</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Saved Articles</a>
+              </li>
+            </ul>
+            <form class="form-inline">
+               <button class="btn btn-outline-success" id="sa" type="button">Scrape new articles</button>
+               <button class="btn btn-outline-success" id="ca" type="button">Clear articles</button>
+             </form>
+          </div>
+        </nav>
+
+<!-- jumbotron -->
+        <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <h1 class="display-4">Science News Scraper</h1>
+            <p class="lead">WIRED Edition</p>
+          </div>
+        </div>
+
+
+        <div id="articles"></div>
+        
+        {{!-- <div class="card w-100">
+          <div class="card-body">
+            <h5 class="card-title"><div id ="articles"></div>Card title</h5>
+            <p class="card-text"><div id ="notes"></div>With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Button</a>
+          </div>
+        </div> --}}
+   
+</div>

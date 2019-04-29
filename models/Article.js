@@ -12,6 +12,10 @@ var ArticleSchema = new Schema({
     type: String,
     required: true
   },
+  summary: {
+    type: String,
+    required: true
+  },
   // Used to populate with notes  
   note: {
     type: Schema.Types.ObjectId,
