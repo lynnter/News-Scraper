@@ -66,9 +66,8 @@ app.get("/scrape", (req, res) => {
 
 // Route for getting all Articles from the db
 app.get("/articles", (req, res) => {
-    console.log('here');
      // Grab every document in the Articles collection
-     db.Article.find({})
+     db.Article.find(req.query)
        .then(dbArticle => {
          res.json(dbArticle);
        })
@@ -107,12 +106,22 @@ app.post("/articles/:id", (req, res) => {
    
 
 app.get("/deleteArticles", function(req, res) {
-  console.log('here2');
   db.Article.deleteMany({}).then(v => {
-    console.log('here3: ', v);
     res.json(v)
   });
 })
+
+
+app.post("/updateArticles/:id", (req, res) => {
+  db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: req.body.saved }, { new: true })
+    .then(dbArticle => {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
+
 
 // Routes
 app.get("/", function(req, res) {
@@ -123,7 +132,15 @@ app.get("/", function(req, res) {
           customjs: "<script type=\"text/javascript\" src=\"js/app.js\"></script>",
       });
   });
-// require("./htmlRoutes")(app);
+
+app.get("/savedArticles", function(req, res) {
+  // If the user already has an account send them to their profile page
+      res.render("savedArticles", {
+          title: "Saved Articles Page",
+          customcss: "<link rel=\"stylesheet\" href=\"css/style.css\"></link>",
+          customjs: "<script type=\"text/javascript\" src=\"js/savedArticles.js\"></script>",
+      });
+  });
 
 // Start the server
 app.listen(PORT, function() {

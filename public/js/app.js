@@ -5,15 +5,37 @@ var scrapeArticles = () => {
   });
 }
 
+var saveArticle = (id) => {
+  console.log('iddd: ', id);
+  $.ajax({
+    method: "POST",
+    url: "/updateArticles/" + id,
+    data: { saved: true }
+  }) 
+}
+
 var renderArticles = () => {
   $.ajax({
     method: "GET",
-    url: "/articles"
+    url: "/articles",
+    data: {}
   }).then(data => {
       // For each one
+      console.log(data);
       for (var i = 0; i < data.length; i++) {
         // Display the apropos information on the page
-        $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+        // $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+        $("#articles").append(`<div class="card w-100">
+          <div class="card-body">
+            <h5 class="card-title"><div id ="articles"></div>${data[i].title}</h5>
+            ${data[i].link}
+            <p class="card-text"><div id ="notes"></div>${data[i].summary}</p>
+            <div id=${data[i]._id} class="btn btn-primary">Save Article</div>
+          </div>
+        </div>`)
+        $(document).on("click", `#${data[i]._id}`, function(v) {
+          saveArticle(v.target.id)
+        })
       }
   });
 }
